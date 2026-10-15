@@ -4,38 +4,50 @@ import numpy as np
 
 def biseccion(f, a, b, tolerancia=1e-6, iteraciones=50):
     ##Evaluar si cumple por Teorema de Bolzano
-    if f(a)*f(b)>=0:
+    if b is None:
+        print("La funcion no cumple el Teorema de Bolzano al no tener cambio de signo debido a falta de valores")
+        return None
+        
+    if f(a)*f(b)>0:
         print("La funcion no cumple el Teorema de Bolzano al no tener cambio de signo")
         return None
+    if f(a)==0:
+        return a,0,[],[a],[f(a)]
+    if f(b)==0:
+            return b,0,[],[b],[f(b)]
 
     Lista_errores=[]
     lista_Xr=[]
     lista_Funcion_Xr=[]
-    Xr_Anterior=a
-    #Uso de las iteraciones
+    Xr_Anterior=None
+ 
     for N in range(1,iteraciones+1):
-        Xr=(a+b)/2
+        Xr = (a + b) / 2
+        Funcion_Xr = f(Xr)
         lista_Xr.append(Xr)
-        Funcion_Xr=f(Xr)
         lista_Funcion_Xr.append(Funcion_Xr)
-
-        #Calcular error con la segunda iteracion
-        if N>1:
-            Error=abs(Xr-Xr_Anterior)
+        if abs(Funcion_Xr) < tolerancia:
+            return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr
+        if Xr_Anterior is not None:
+            Error = abs(Xr - Xr_Anterior)
             Lista_errores.append(Error)
-            if Error <tolerancia or abs(Funcion_Xr) < tolerancia:
-                return Xr,N,Lista_errores,lista_Xr 
-        if Funcion_Xr==0:
-            return Xr,N,Lista_errores,lista_Xr
-
-        if f(a)*f(Xr)>0:
-            a=Xr
+            if Error < tolerancia:
+                return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr
+        if f(a) * f(Xr) > 0:
+            a = Xr
         else:
-            b=Xr
-        lista_Xr.append(Xr)
-        
-    return Xr,N,Lista_errores,lista_Xr
+            b = Xr
+      
+        Xr_Anterior = Xr
 
+    return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr
+
+
+
+
+def graficar_Funcion():
+    
+    pass
 
 
 ##solo casos de prueba
@@ -49,8 +61,8 @@ Funciones_Evaluar = [
     {
         'Nombre': "Polinomica (Raiz doble)",
         'f': lambda x: (x-2)**2,
-        'a': 2.0,
-        'b': 3.0,
+        'a': 1.2,
+        'b': None,
     },
     {
         'Nombre': "Logaritmica",
@@ -91,7 +103,7 @@ for caso in Funciones_Evaluar:
     if resultado is None:
         print("No se logro obtener una raiz (Revisar).")
     else:
-        raiz, N, errores, aproximaciones = resultado
+        raiz, N, errores, aproximaciones ,valores_funciones= resultado
 
         print(f"Raíz aproximada: {raiz}")
         print(f"Iteraciones: {N}")
