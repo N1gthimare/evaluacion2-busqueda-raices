@@ -3,14 +3,15 @@ import numpy as np
 
 
 def biseccion(f, a, b, tolerancia=1e-6, iteraciones=50):
-    ##Evaluar si cumple por Teorema de Bolzano
+
     if b is None:
-        print("La funcion no cumple el Teorema de Bolzano al no tener cambio de signo debido a falta de valores")
         return None
-        
+
     if f(a)*f(b)>0:
         print("La funcion no cumple el Teorema de Bolzano al no tener cambio de signo")
         return None
+
+        
     if f(a)==0:
         return a,0,[],[a],[f(a)]
     if f(b)==0:
@@ -107,5 +108,6 @@ for caso in Funciones_Evaluar:
 
         print(f"Raíz aproximada: {raiz}")
         print(f"Iteraciones: {N}")
-        print(f"Cantidad de aproximaciones: {(aproximaciones)}")
-        print(f"Cantidad de errores: {(errores)}")
+        print(f"Cantidad de aproximaciones: {len(aproximaciones)}")
+        print(f"Cantidad de errores: {len(errores)}")
+        print(f"Valores de las funciones: {(valores_funciones)}")
