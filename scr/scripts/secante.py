@@ -1,4 +1,5 @@
 import numpy as np
+from rellenar_csv import crear_csv, escribir_csv
 
 
 def extraer_datos(lista_funciones):
@@ -12,6 +13,7 @@ def extraer_datos(lista_funciones):
 
 def secante(lista_funciones):
     datos = extraer_datos(lista_funciones)
+    ar = crear_csv(lista_funciones)
     tol = 0.000001
     resultados = []
     iteraciones = 0
@@ -21,7 +23,9 @@ def secante(lista_funciones):
         x1 =  lista[1][1]
         while iteraciones < 100:
             if (type(x0) != float) or (type(x1) != float): break
-            xn = x1 - ((x1 - x0)/(f(x1) - f(x0))) * f(x1)
+            res = x1 - ((x1 - x0)/(f(x1) - f(x0))) * f(x1)
+            escribir_csv(ar, [x0, x1, res])
+            xn = res
             iteraciones += 1
             if (xn - x1)/xn <= tol:
                 print(f"Raiz {xn} encontrada en la iteracion: {iteraciones}")
