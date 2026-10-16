@@ -1,3 +1,6 @@
+import numpy
+
+
 Funciones_Evaluar = [
     {
         'Nombre': "Polinomica (Raiz simple)",
