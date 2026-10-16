@@ -1,4 +1,5 @@
 import numpy as np
+from rellenar_csv import crear_csv, escribir_csv
 
 def funcion_derivada(f, x, h=1e-5):
     return (f(x + h) - f(x - h)) / (2 * h)
@@ -6,6 +7,7 @@ def funcion_derivada(f, x, h=1e-5):
 
 def Newton_Raphson(f, a, tolerancia=1e-6, iteraciones=100):
     lista_Errores = []
+    ar = crear_csv(lista_funciones)
     Lista_X = [a]
     lista_Funcion = [f(a)]
     X_actual = a
@@ -18,6 +20,7 @@ def Newton_Raphson(f, a, tolerancia=1e-6, iteraciones=100):
             return X_actual, N - 1, lista_Errores, Lista_X, lista_Funcion, estado
 
         x_nuevo = X_actual - f(X_actual) / derivada
+        
 
         if not np.isfinite(x_nuevo):
             estado = "Aproximación no válida"
