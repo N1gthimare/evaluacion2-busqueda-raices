@@ -28,7 +28,6 @@ def secante(lista_funciones):
             xn = res
             iteraciones += 1
             if (xn - x1)/xn <= tol:
-                print(f"Raiz {xn} encontrada en la iteracion: {iteraciones}")
                 resultados.append([f,xn, x1, x0])
                 break
             x0 = x1
