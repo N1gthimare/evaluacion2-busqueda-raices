@@ -1,113 +1,68 @@
 import numpy as np
 
-
-
 def biseccion(f, a, b, tolerancia=1e-6, iteraciones=50):
 
+    Lista_errores = []
+    lista_Xr = []
+    lista_Funcion_Xr = []
     if b is None:
-        return None
+        estado = "Falta el extremo b del intervalo"
+        return None, 0, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
 
-    if f(a)*f(b)>0:
-        print("La funcion no cumple el Teorema de Bolzano al no tener cambio de signo")
-        return None
+    if not np.isfinite(a) or not np.isfinite(b) or a >= b:
+        estado = "Intervalo no válido"
+        return None, 0, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
 
-        
-    if f(a)==0:
-        return a,0,[],[a],[f(a)]
-    if f(b)==0:
-            return b,0,[],[b],[f(b)]
+    fa = f(a)
+    fb = f(b)
 
-    Lista_errores=[]
-    lista_Xr=[]
-    lista_Funcion_Xr=[]
-    Xr_Anterior=None
- 
-    for N in range(1,iteraciones+1):
+    if not np.isfinite(fa) or not np.isfinite(fb):
+        estado = "Valores de la función no válidos"
+        return None, 0, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
+    if fa == 0:
+        estado = "Convergió"
+        return a, 0, Lista_errores, [a], [fa], estado
+
+    if fb == 0:
+        estado = "Convergió"
+        return b, 0, Lista_errores, [b], [fb], estado
+    if fa * fb > 0:
+        estado = "No hay cambio de signo en el intervalo"
+        return None, 0, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
+
+    Xr_Anterior = None
+    estado = "Agotó las iteraciones"
+
+    for N in range(1, iteraciones + 1):
+
         Xr = (a + b) / 2
         Funcion_Xr = f(Xr)
+
+        if not np.isfinite(Xr) or not np.isfinite(Funcion_Xr):
+            estado = "Aproximación o función no válida"
+            return None, N - 1, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
+
         lista_Xr.append(Xr)
         lista_Funcion_Xr.append(Funcion_Xr)
         if abs(Funcion_Xr) < tolerancia:
-            return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr
+            estado = "Convergió"
+            return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
+
+        # Calcular el error entre aproximaciones consecutivas
         if Xr_Anterior is not None:
             Error = abs(Xr - Xr_Anterior)
             Lista_errores.append(Error)
+
             if Error < tolerancia:
-                return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr
-        if f(a) * f(Xr) > 0:
+                estado = "Convergió"
+                return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
+        if fa * Funcion_Xr > 0:
             a = Xr
+            fa = Funcion_Xr
         else:
             b = Xr
-      
+            fb = Funcion_Xr
+
         Xr_Anterior = Xr
 
-    return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr
-
-
-
-
-def graficar_Funcion():
-    
-    pass
-
-
-##solo casos de prueba
-Funciones_Evaluar = [
-    {
-        'Nombre': "Polinomica (Raiz simple)",
-        'f': lambda x: x**3 - x - 2,
-        'a': 1.0,
-        'b': 2.0,
-    },
-    {
-        'Nombre': "Polinomica (Raiz doble)",
-        'f': lambda x: (x-2)**2,
-        'a': 1.2,
-        'b': None,
-    },
-    {
-        'Nombre': "Logaritmica",
-        'f': lambda x: np.log(x)+x-4,
-        'a': 2.0,
-        'b': 3.0,
-    },
-    {
-        'Nombre': "Exponencial",
-        'f': lambda x: np.exp(-x)-x,
-        'a': 0.0,
-        'b': 1.0,
-    },
-    {
-        'Nombre': "Trigonometrica",
-        'f': lambda x: np.cos(x) - x,
-        'a': 0.0,
-        'b': 1.0,
-    },
-        {
-        'Nombre': "Mixta",
-        'f': lambda x: np.sqrt(x) - np.cos(x),
-        'a': 0.1,
-        'b': 1.0,
-    },
-]
-
-###Caso de prueba evaluados
-for caso in Funciones_Evaluar:
-    print(f"\n{caso['Nombre']}")
-
-    resultado = biseccion(
-        caso['f'],
-        caso['a'],
-        caso['b']
-    )
-
-    if resultado is None:
-        print("No se logro obtener una raiz (Revisar).")
-    else:
-        raiz, N, errores, aproximaciones ,valores_funciones= resultado
-
-        print(f"Raíz aproximada: {raiz}")
-        print(f"Iteraciones: {N}")
-        print(f"Cantidad de aproximaciones: {len(aproximaciones)}")
-        print(f"Cantidad de errores: {len(errores)}")
-        print(f"Valores de las funciones: {(valores_funciones)}")
+    return Xr, N, Lista_errores, lista_Xr, lista_Funcion_Xr, estado
