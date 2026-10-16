@@ -1,0 +1,39 @@
+from rellenar_csv import crear_csv, escribir_csv
+
+
+def extraer_datos(lista_funciones):
+    datos = []
+    for elem in lista_funciones:
+        f = elem.get('f')
+        x0 = elem.get('a')
+        x1 = elem.get('b')
+        datos.append([f,[x0,x1]])
+    return datos
+
+def secante(lista_funciones):
+    datos = extraer_datos(lista_funciones, "secante")
+    ar = crear_csv(lista_funciones)
+    tol = 0.000001
+    resultados = []
+    iteraciones = 0
+    for lista in datos:
+        errores = []
+        f = lista[0]
+        x0 = lista[1][0]
+        x1 =  lista[1][1]
+        while iteraciones < 100:
+            if (type(x0) != float) or (type(x1) != float): break
+            res = x1 - ((x1 - x0)/(f(x1) - f(x0))) * f(x1)
+            escribir_csv(ar, [x0, x1, res])
+            xn = res
+            iteraciones += 1
+            if (xn - x1)/xn <= tol:
+                resultados.append([iteraciones, res, (xn - x1)/xn])
+                errores.append((x1 - x0)/x1)
+                break
+            elif iteraciones == 100:
+                resultados.append([iteraciones, 0, 0])
+            errores.append((x1 - x0)/x1)
+            x0 = x1
+            x1 = xn
+    return errores
