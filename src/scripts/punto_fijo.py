@@ -19,7 +19,7 @@ def punto_fijo(lista_funciones):
             xi = res
             iteraciones += 1
             if ((xi - x_anterior) / xi) <= tol:
-                resultados.append([iteraciones, res, (xi - x_anterior) / xi])
+                resultados.append([elem.get('Nombre'),"Punto fijo",iteraciones, res, (xi - x_anterior) / xi])
                 errores.append((xi - x_anterior)/xi)
                 break
             errores.append((xi - x_anterior)/xi)
