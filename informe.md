@@ -92,9 +92,8 @@ Estos casos se pueden observar en nuestro grafico (`src/assets/errores_Polinomic
 **Métodos cerrados:**
 
 - **Bisección:** Utilizar un intervalo cuyos extremos tengan signos opuestos permite garantizar la convergencia, siempre que la función sea continua en dicho intervalo. La amplitud inicial influye en la cantidad de iteraciones, ya que un intervalo más amplio requiere más divisiones para alcanzar la tolerancia deseada. La cantidad aproximada de iteraciones se calcula mediante:
-  \[
-  n \geq \frac{\log((b-a)/\text{tolerancia})}{\log(2)}
-  \]
+
+    n ≥ log₂((b − a) / tolerancia)
   Por lo tanto, aumentar el ancho del intervalo incrementa las iteraciones necesarias, pero no compromete la convergencia si se cumplen las condiciones del método.
 
 - **Falsa posición:** También requiere un intervalo cuyos extremos tengan signos opuestos y una función continua. Sin embargo, su convergencia puede ser más lenta que la de bisección, ya que uno de los extremos puede permanecer prácticamente fijo durante varias iteraciones. Esto provoca estancamiento y puede hacer que no se alcance la tolerancia dentro del máximo de iteraciones establecido.
