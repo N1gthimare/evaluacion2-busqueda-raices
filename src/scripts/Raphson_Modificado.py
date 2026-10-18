@@ -1,5 +1,6 @@
 
 import numpy as np
+from rellenar_csv import crear_csv, escribir_csv
 
 
 def segunda_derivada(f, x, h=1e-5):
@@ -20,8 +21,9 @@ def funcion_derivada(f, x, h=1e-5):
     return (-3 * f(x) + 4 * f(x + h) - f(x + 2*h)) / (2*h)
 
 
-def Newton_Raphson_Modificado(f, a, tolerancia=1e-6, iteraciones=100):
+def Newton_Raphson_Modificado(f, a, nombre, tolerancia=1e-6, iteraciones=100):
     lista_Errores = []
+    ar = crear_csv(nombre, "Newton-Raphson Modificado")
     Lista_X = [a]
     X_actual = a
     lista_Funcion = [f(a)]
@@ -48,6 +50,8 @@ def Newton_Raphson_Modificado(f, a, tolerancia=1e-6, iteraciones=100):
             return X_actual, N - 1, lista_Errores, Lista_X, lista_Funcion, estado
 
         x_nuevo = X_actual - (valor_funcion * Derivada) / Denominador
+        escribir_csv(ar, [X_actual, "-", x_nuevo])
+        
 
         # No evaluar la función fuera de su dominio real
         if not np.isfinite(x_nuevo) or x_nuevo < 0:
@@ -68,6 +72,7 @@ def Newton_Raphson_Modificado(f, a, tolerancia=1e-6, iteraciones=100):
 
         if error < tolerancia or abs(valor_nuevo) < tolerancia:
             estado = "Convergió"
+            escribir_csv(ar, [X_actual, "-", x_nuevo])
             return x_nuevo, N, lista_Errores, Lista_X, lista_Funcion, estado
 
         X_actual = x_nuevo

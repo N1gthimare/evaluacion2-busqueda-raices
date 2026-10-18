@@ -21,14 +21,7 @@ def validar(func):
         elif es_continua(f, a, b) and ((f(a) * f(b)) < 0):
             validas.append([f,[a,b]])
     return validas
-        
-def extraer(f):
-    funciones = []
-    for func in f:
-        funciones.append([func.get('f'),[func.get('a'),func.get('b')]])
-    return funciones
 
-def comprobar_validez(f):
-    funciones = extraer(f)
-    f_validas = validar(funciones)
+def comprobar_validez(f, a, b):
+    f_validas = validar([f, [a,b]])
     return f_validas

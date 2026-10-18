@@ -5,9 +5,9 @@ def funcion_derivada(f, x, h=1e-5):
     return (f(x + h) - f(x - h)) / (2 * h)
 
 
-def Newton_Raphson(f, a, tolerancia=1e-6, iteraciones=100):
+def Newton_Raphson(f, a, nombre, tolerancia=1e-6, iteraciones=100):
     lista_Errores = []
-    ar = crear_csv(lista_funciones)
+    ar = crear_csv(nombre, "Newton-Raphson")
     Lista_X = [a]
     lista_Funcion = [f(a)]
     X_actual = a

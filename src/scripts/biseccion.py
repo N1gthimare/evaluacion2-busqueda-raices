@@ -1,7 +1,9 @@
 import numpy as np
+from rellenar_csv import crear_csv, escribir_csv
 
-def biseccion(f, a, b, tolerancia=1e-6, iteraciones=50):
+def biseccion(f, a, b, nombre, tolerancia=1e-6, iteraciones=50):
 
+    ar = crear_csv(nombre, "Biseccion")
     Lista_errores = []
     lista_Xr = []
     lista_Funcion_Xr = []
@@ -36,6 +38,8 @@ def biseccion(f, a, b, tolerancia=1e-6, iteraciones=50):
     for N in range(1, iteraciones + 1):
 
         Xr = (a + b) / 2
+        escribir_csv(ar, [a, b, Xr])
+        
         Funcion_Xr = f(Xr)
 
         if not np.isfinite(Xr) or not np.isfinite(Funcion_Xr):

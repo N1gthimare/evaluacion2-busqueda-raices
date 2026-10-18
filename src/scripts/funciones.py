@@ -3,14 +3,14 @@ import numpy as np
 
 Funciones_Evaluar = [
     {
-        'Nombre': "Polinomica (Raiz simple)",
+        'Nombre': "Polinomica_(Raiz simple)",
         'f': lambda x: x**3 - x - 2,
         'g': lambda x: np.cbrt(x +  2),
         'a': 1.0,
         'b': 2.0,
     },
     {
-        'Nombre': "Polinomica (Raiz doble)",
+        'Nombre': "Polinomica_(Raiz doble)",
         'f': lambda x: (x-2)**2,
         'a': 1.2,
         'b': None,
@@ -36,11 +36,12 @@ Funciones_Evaluar = [
         'a': 0.0,
         'b': 1.0,
     },
-        {
+    {
         'Nombre': "Mixta",
         'f': lambda x: np.sqrt(x) - np.cos(x),
-        'g': lambda x: np.cos(x)np.cos(x),
+        'g': lambda x: np.cos(x)*np.cos(x),
         'a': 0.1,
         'b': 1.0,
-    },
+
+    }
 ]
