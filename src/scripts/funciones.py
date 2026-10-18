@@ -12,6 +12,7 @@ Funciones_Evaluar = [
     {
         'Nombre': "Polinomica_(Raiz doble)",
         'f': lambda x: (x-2)**2,
+        'g': None,
         'a': 1.2,
         'b': None,
     },
