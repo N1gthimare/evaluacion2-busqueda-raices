@@ -19,9 +19,9 @@ def secante(f, a, b, nombre):
     iteraciones = 0
     
     while iteraciones < 100:
-        if (type(a) != float) or (type(b) != float):
+        if (a == None) or (b == None):
             estado = "Uno de los valores no es valido"
-            return xn, iteraciones, errores, lista_x, resultados, estado
+            return 0, iteraciones, errores, lista_x, resultados, estado
         
         res = b - ((b - a)/(f(b) - f(a))) * f(b)
         fx = f(res)

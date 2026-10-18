@@ -9,18 +9,21 @@ def punto_fijo(g, nombre):
     resultados = []
     errores = []
     iteraciones = 0
-    x_anterior = 0
+    x_anterior = 1
     xi = 0
     
     while iteraciones < 100:
+        if (g == None):
+            estado = "No hay funcion g(x) o no es valida"
+            return 0, iteraciones, errores, lista_x, resultados, estado
         res = g(x_anterior)
 
         lista_x.append(xi)
+        xi = res
         resultados.append(res)
         errores.append((xi - x_anterior)/xi)
         
         escribir_csv(ar, [x_anterior, xi, res])
-        xi = res
         iteraciones += 1
 
         if abs((xi - x_anterior) / xi) <= tol:

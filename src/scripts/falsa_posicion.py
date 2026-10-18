@@ -1,16 +1,20 @@
 from validar_FP import comprobar_validez
 from rellenar_csv import crear_csv, escribir_csv
-# Revisar casos de errores
 
-def falsa_posicion(f, a, b, nombre):
+
+def falsa_posicion(f0, a0, b0, nombre):
     ar = crear_csv(nombre, "falsa_posicion")
     tol = 0.000001
-    funciones = comprobar_validez(f, a, b)
+    f, a, b, valida = comprobar_validez(f0, a0, b0)
     lista_x = []
     resultados = []
     errores = []
     iteraciones = 0
     x_anterior = 0
+    
+    if not valida:
+        estado = "La funcion o algun valor entregado no es valido"
+        return 0, 0, errores, lista_x, resultados, estado
     
     while iteraciones < 100:
         res = b - (f(b) * (a - b))/(f(a) - f(b))
@@ -35,6 +39,5 @@ def falsa_posicion(f, a, b, nombre):
         elif iteraciones == 100:
             estado = "Agotó las iteraciones"
             return xr, iteraciones, errores, lista_x, resultados, estado
-            
-        
+
         x_anterior = xr

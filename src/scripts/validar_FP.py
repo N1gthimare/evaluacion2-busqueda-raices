@@ -10,18 +10,16 @@ def es_continua(f, a, b):
     except Exception:
         return False
 
-def validar(func):
-    validas = []
-    for elem in func:
-        f = elem[0]
-        a = elem[1][0]
-        b = elem[1][1]
-        if (type(a) != float) or (type(b) != float):
-            pass
-        elif es_continua(f, a, b) and ((f(a) * f(b)) < 0):
-            validas.append([f,[a,b]])
-    return validas
+def validar(f, a ,b):
+    if (type(a) != float) or (type(b) != float):
+        return f, a, b, False
+    elif (a < 0) or (b < 0):
+        return f, a, b, False
+    elif es_continua(f, a, b) and ((f(a) * f(b)) < 0):
+        return f, a, b, True
+    else:
+        return f, a, b, False
 
-def comprobar_validez(f, a, b):
-    f_validas = validar([f, [a,b]])
-    return f_validas
+def comprobar_validez(f0, a0, b0):
+    f, a, b, valido = validar(f0, a0, b0)
+    return f, a, b, valido
