@@ -19,7 +19,7 @@ Funciones_Evaluar = [
     {
         'Nombre': "Logaritmica",
         'f': lambda x: np.log(x)+x-4,
-        'g': lambda x:4 - np.exp(4-x),
+        'g': lambda x: 4 - np.log(x),
         'a': 2.0,
         'b': 3.0,
     },

@@ -33,7 +33,7 @@ def falsa_posicion(f0, a0, b0, nombre):
             resultados.append(f(a))
 
 
-        if abs(f(xr)) <= tol or abs(xr - x_anterior) <= tol:
+        if abs(f(xr)) <= tol or abs((xr - x_anterior) / xr) <= tol:
             estado = "Convergio"
             return xr, iteraciones, errores, lista_x, resultados, estado
         elif iteraciones == 100:

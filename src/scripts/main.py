@@ -8,6 +8,7 @@ from Graficos import graficar_resultados
 from falsa_posicion import falsa_posicion
 from punto_fijo import punto_fijo
 from secante import secante
+from csv_resultados import csv_resultados
 
 
 Metodos = [
@@ -75,6 +76,7 @@ def main():
     }
 
     graficar_resultados(Resultados, funciones)
+    csv_resultados(Resultados)
 
 
 if __name__ == "__main__":
