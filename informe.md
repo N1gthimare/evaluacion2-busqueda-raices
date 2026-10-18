@@ -13,6 +13,15 @@ Integrantes:Ariel Gallardo-Manuel Fuentes.
 
 Para todas las funciones: **tolerancia = 1e-6**, **tope = 100 iteraciones**, criterio de parada `|f(xₙ)| < tol` o `|xₙ − xₙ₋₁| < tol`.
 
+| Función | f(x) | Intervalo [a, b] | g(x) punto fijo |
+| :--- | :--- | :--- | :--- |
+| Polinómica (raíz simple) | x³ − x − 2 | [1.0, 2.0] | ∛(x + 2) |
+| Polinómica (raíz doble) | (x − 2)² | [1.2, —] | No aplica |
+| Logarítmica | ln(x) + x − 4 | [2.0, 3.0] | 4 − ln(x) |
+| Exponencial | e⁻ˣ − x | [0.0, 1.0] | e⁻ˣ |
+| Trigonométrica | cos(x) − x | [0.0, 1.0] | cos(x) |
+| Mixta | √x − cos(x) | [0.1, 1.0] | cos²(x) |
+
 ---
 
 ## 2. Resultados
